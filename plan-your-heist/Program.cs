@@ -19,7 +19,7 @@ namespace Heist
             Console.WriteLine("");
             Console.WriteLine("What's your patsy's name?");
             string name = Console.ReadLine();
-            Console.WriteLine("How good they is? 1-10");
+            Console.WriteLine("How good they is? 1-100");
             int skill = int.Parse(Console.ReadLine());
             Console.WriteLine("How Not Scared Are They? 0.0 - 2.0");
             double courage = double.Parse(Console.ReadLine());
@@ -38,20 +38,32 @@ Courage Factor: {courage}");
             }
             else
             {
-                Console.WriteLine($"You have {HeistCrew.Count}");
+                Console.WriteLine("---------------------------");
+                Console.Clear();
+                Console.WriteLine($"You have {HeistCrew.Count} partners in crime");
+
             }
-//             foreach (var crewMem in HeistCrew)
-//             {
-//                 Console.WriteLine(@$"
-// Name: {crewMem.name},
-// Skill level: {crewMem.skill},
-// Courage Factor: {crewMem.courage}");
-//                 Console.WriteLine("---------");
-//             }
+                Console.WriteLine("");
+                Console.WriteLine("----------------------------");
+                Console.WriteLine("It's time to prepare. How many trial runs do you want to do? (0-5)");
+                int TrialRuns = int.Parse(Console.ReadLine());
+            foreach (var crewMem in HeistCrew)
+            {
+                Console.WriteLine(@$"
+Name: {crewMem.name},
+Skill level: {crewMem.skill},
+Courage Factor: {crewMem.courage}");
+                Console.WriteLine("---------");
+            }
+            while (TrialRuns > 0 ) 
+            {
+
+            
             
             Random r = new Random();
             int Luck = r.Next(-10, 10);
             int BankSecurity = 100;
+          
             BankSecurity += Luck;
 
 
@@ -61,14 +73,18 @@ Courage Factor: {courage}");
                 CrewSkill += crewMem.skill;
             }
 
-            Console.WriteLine($"The bank's security level is {BankSecurity}, and your crew has {skill} skill");
+            Console.WriteLine($"The bank's security level is {BankSecurity}, and your crew has {CrewSkill} skill");
             if (CrewSkill > BankSecurity)
             {
                 Console.WriteLine("The heist was a success!");
+                TrialRuns--;
             }
+
             else
             {
                 Console.WriteLine($"{HeistCrew[0].name} tripped the alarm! You're all screwed!");
+                TrialRuns--;
+            }
             }
         }
     }
